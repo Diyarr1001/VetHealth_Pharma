@@ -25,6 +25,11 @@ The application is structured into a modern monorepo containing two dedicated en
 - **DatabaseEngine**: PostgreSQL
 - **Language**: Python 3.x+
 
+### Content Management & Admin Panel
+- **Headless CMS**: Sanity (or Strapi alternative based on final deployment)
+- **Primary Use**: Content management for Blog posts, Product updates, Dealer networks, and Categories.
+- **Admin Interface**: Secured backend dashboard deployed alongside the frontend to give operations staff full CRUD control over dynamic data without touching code.
+
 ### Media
 - **Assets**: Cloudinary (Videos), Unsplash (High-quality contextual farm/veterinary imagery)
 
@@ -88,6 +93,14 @@ The backend is a robust Python FastAPI server designed for heavy data throughput
 ### Core API Architectures
 - **`GET /api/products`**: Designed to be entirely filter-driven (e.g., `?animal=poultry&category=vaccines`) returning JSON payloads directly into Next.js.
 - **`POST /api/inquiries`**: Secured mutation endpoint handling form submissions.
+- **`GET/POST /api/admin/*`**: Secured routes with JWT authentication specifically for the Admin Panel to fetch and mutate CMS data directly in the database. 
+
+## 6. Admin Panel Overview
+The VetHealth operations are fully manageable via the integrated Admin Panel / Headless CMS.
+- **Product Management**: Add, edit, or remove products. Update compositions, dosage instructions, and images.
+- **Content Operations**: Publish new veterinary articles to the Knowledge Center.
+- **Inquiry Handling**: View and respond to submitted "Contact Us", "Bulk Order", or "Consultation" requests.
+- **Security**: The dashboard requires administrative authentication, ensuring only authorized VetHealth staff can modify public-facing data.
 
 ---
 

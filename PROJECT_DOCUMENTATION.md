@@ -22,7 +22,7 @@ The application is structured into a modern monorepo containing two dedicated en
 ### Backend
 - **Framework**: FastAPI (Python)
 - **Database ORM**: Prisma ORM for Python
-- **DatabaseEngine**: PostgreSQL
+- **Database Engine**: PostgreSQL (Optimized for **Supabase**, which provides a 100% free forever tier perfect for startups and production).
 - **Language**: Python 3.x+
 
 ### Content Management & Admin Panel
@@ -129,6 +129,7 @@ Because the project is separated cleanly into `frontend` and `backend`, each com
 The architecture is configured for zero-downtime automated deployment. 
 - **Frontend** pushes statically to **Vercel**. *Crucial configuration: "Root Directory" MUST be set exactly to `frontend` with the preset mapped to Next.js.*
 - **Backend** pushes via Docker/Railway/Render depending on the active production PostgreSQL database location.
+- **Database**: **Supabase** is highly recommended. It offers a powerful, entirely free tier for PostgreSQL hosting that will handle your entire operational load indefinitely without incurring costs. Simply paste the Supabase `DATABASE_URL` connection string into your backend `.env` file.
 
 --- 
 *This documentation is up-to-date and tracks the finalized Royal Violet redesign, mapped sitemap expansion, and global visual media enhancement releases.*

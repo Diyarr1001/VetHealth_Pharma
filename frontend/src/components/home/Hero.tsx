@@ -16,12 +16,12 @@ export function Hero() {
           muted
           loop
           playsInline
-          className="object-cover w-full h-full opacity-60"
+          className="object-cover w-full h-full opacity-90"
         >
           <source src="https://res.cloudinary.com/demo/video/upload/v1641370241/elephants.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/5 to-transparent"></div>
       </div>
 
       {/* Content Wrapper */}

@@ -40,8 +40,8 @@ export default function About() {
             className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl"
           >
             <Image 
-              src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1000&auto=format&fit=crop" 
-              alt="Laboratory research" 
+              src="https://images.unsplash.com/photo-1628009368231-7bb7cbcb8122?q=80&w=1000&auto=format&fit=crop" 
+              alt="Veterinary laboratory research and care" 
               fill
               className="object-cover"
             />

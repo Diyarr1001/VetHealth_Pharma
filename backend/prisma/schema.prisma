@@ -1,0 +1,60 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider             = "prisma-client-py"
+  recursive_type_depth = 5
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String
+  composition String?
+  dosage      String?
+  benefits    String?
+  useCases    String?
+  animalTypes String[] // e.g., ["Cattle", "Poultry"]
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  imageUrl    String?
+  pdfUrl      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Inquiry {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  type      String   // "Dealer", "Contact", "Consultation", "Bulk Order"
+  company   String?
+  message   String
+  status    String   @default("Pending") // "Pending", "Reviewed", "Resolved"
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  slug      String   @unique
+  content   String
+  imageUrl  String?
+  category  String   // e.g., "Animal diseases", "Nutrition"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

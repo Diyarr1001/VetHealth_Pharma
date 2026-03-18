@@ -44,6 +44,7 @@ class ProductCreate(BaseModel):
     name: str
     slug: str
     description: str
+    price: float
     composition: Optional[str] = None
     dosage: Optional[str] = None
     benefits: Optional[str] = None
@@ -96,6 +97,7 @@ async def create_product(product: ProductCreate):
             "name": product.name,
             "slug": product.slug,
             "description": product.description,
+            "price": product.price,
             "composition": product.composition,
             "dosage": product.dosage,
             "benefits": product.benefits,

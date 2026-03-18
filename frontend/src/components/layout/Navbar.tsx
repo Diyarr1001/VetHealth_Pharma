@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Menu, X, ChevronDown, Stethoscope } from "lucide-react";
+import { Menu, X, ChevronDown, Stethoscope, ShoppingCart } from "lucide-react";
+import { useCart } from "@/store/CartContext";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
@@ -34,6 +35,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,6 +115,16 @@ export function Navbar() {
                 )}
               </div>
             ))}
+            
+            <Link href="/cart" className="relative p-2 text-foreground hover:text-primary transition-colors">
+              <ShoppingCart size={24} />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center translate-x-1 -translate-y-1 shadow-sm">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+
             <Link
               href="/contact?type=bulk"
               className="bg-primary hover:bg-premium text-primary-foreground px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg hover:shadow-premium/20"
@@ -121,13 +133,23 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="lg:hidden text-foreground block focus:outline-none"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Mobile Menu Toggle & Cart */}
+          <div className="flex items-center gap-4 lg:hidden">
+            <Link href="/cart" className="relative p-2 text-foreground hover:text-primary transition-colors">
+              <ShoppingCart size={24} />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center translate-x-1 -translate-y-1 shadow-sm">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+            <button
+              className="text-foreground block focus:outline-none"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </div>
 

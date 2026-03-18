@@ -1,11 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, FileDown, ShieldCheck, ShoppingCart, MessageSquareText } from "lucide-react";
+import { ArrowLeft, CheckCircle2, FileDown, ShieldCheck, ShoppingCart, MessageSquareText, Plus, Minus } from "lucide-react";
+import { useCart } from "@/store/CartContext";
 
 export default function ProductDetail() {
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+  
+  // Hardcoded for demo, normally fetched from API using params.id
+  const product = {
+    id: "1",
+    name: "MastiCure Pro",
+    price: 24.99,
+    slug: "masticure-pro",
+    imageUrl: "https://images.unsplash.com/photo-1584745814571-0f723e7facb9?q=80&w=800&auto=format&fit=crop"
+  };
   return (
     <div className="bg-background pt-32 pb-24 min-h-screen">
       <section className="container mx-auto px-4 md:px-8">
@@ -51,10 +64,13 @@ export default function ProductDetail() {
                  <span className="bg-foreground/10 text-foreground border border-border px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Cattle</span>
                </div>
                
-               <h1 className="text-4xl md:text-5xl font-extrabold text-foreground font-heading mb-4">
+               <h1 className="text-4xl md:text-5xl font-extrabold text-foreground font-heading mb-2">
                  MastiCure Pro
                </h1>
-               <p className="text-xl text-muted-foreground mb-8">
+               
+               <div className="text-3xl font-extrabold text-primary mb-4">${product.price.toFixed(2)} <span className="text-sm font-normal text-muted-foreground tracking-widest uppercase">/ unit</span></div>
+
+               <p className="text-lg text-muted-foreground mb-8">
                  Broad-spectrum, rapid-action intramammary infusion designed specifically for the treatment of clinical mastitis in lactating dairy cattle.
                </p>
                
@@ -76,12 +92,22 @@ export default function ProductDetail() {
                  </div>
                </div>
                
-               <div className="pt-6 border-t border-border flex flex-col sm:flex-row gap-4 mt-auto">
-                 <Link href="/contact?type=bulk" className="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-premium text-primary-foreground px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-premium/20">
-                   <ShoppingCart size={18} /> Request Pricing
-                 </Link>
-                 <Link href="/consultation" className="flex-1 flex items-center justify-center gap-2 bg-card hover:bg-muted border border-border text-foreground px-8 py-4 rounded-xl font-bold transition-all">
-                   <MessageSquareText size={18} /> Ask a Vet
+               <div className="pt-6 border-t border-border mt-auto space-y-4">
+                 <div className="flex items-center gap-3">
+                   <div className="flex items-center border border-border rounded-xl bg-background overflow-hidden p-1">
+                     <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 text-foreground hover:bg-muted rounded-lg transition-colors"><Minus size={16}/></button>
+                     <span className="w-12 text-center font-bold">{quantity}</span>
+                     <button onClick={() => setQuantity(quantity + 1)} className="p-2 text-foreground hover:bg-muted rounded-lg transition-colors"><Plus size={16}/></button>
+                   </div>
+                   <button 
+                     onClick={() => addToCart({ ...product, quantity })}
+                     className="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-premium text-primary-foreground px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-premium/20"
+                   >
+                     <ShoppingCart size={18} /> Add to Cart
+                   </button>
+                 </div>
+                 <Link href="/contact?type=bulk" className="w-full flex items-center justify-center gap-2 bg-card hover:bg-muted border border-border text-foreground px-8 py-3 rounded-xl font-bold transition-all">
+                   <MessageSquareText size={18} /> Request Bulk Quote / Ask a Vet
                  </Link>
                </div>
              </motion.div>

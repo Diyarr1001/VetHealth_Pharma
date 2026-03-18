@@ -13,6 +13,7 @@ model Product {
   name        String
   slug        String   @unique
   description String
+  price       Float    @default(0.0)
   composition String?
   dosage      String?
   benefits    String?

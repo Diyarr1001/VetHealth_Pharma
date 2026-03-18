@@ -4,16 +4,17 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, Filter, ShieldCheck, FileDown, ArrowRight } from "lucide-react";
+import { useCart } from "@/store/CartContext";
+import { Search, Filter, ShieldCheck, FileDown, ArrowRight, ShoppingCart } from "lucide-react";
 
 // Mock Data
 const PRODUCTS = [
-  { id: "1", name: "MastiCure Pro", category: "Medicines", animal: "Cattle", summary: "Broad-spectrum intramammary infusion for clinical mastitis.", imageUrl: "https://images.unsplash.com/photo-1584745814571-0f723e7facb9?q=80&w=800&auto=format&fit=crop" },
-  { id: "2", name: "CocciStop Solution", category: "Medicines", animal: "Poultry", summary: "Liquid anticoccidial for rapidly spreading infections.", imageUrl: "https://images.unsplash.com/photo-1542385151-efd014aa27f6?q=80&w=800&auto=format&fit=crop" },
-  { id: "3", name: "BoviVax 5-Way", category: "Vaccines", animal: "Cattle", summary: "Pentavalent respiratory and reproductive vaccine.", imageUrl: "https://images.unsplash.com/photo-1628771065518-0d82f1938462?q=80&w=800&auto=format&fit=crop" },
-  { id: "4", name: "AquaGrow Booster", category: "Feed Supplements", animal: "Aquaculture", summary: "Pelleted probiotic for enhanced FCR in shrimp and fish.", imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" },
-  { id: "5", name: "ImidoVet Injection", category: "Medicines", animal: "Sheep & Goat", summary: "Specific hemoparasiticide against Babesiosis and Anaplasmosis.", imageUrl: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop" },
-  { id: "6", name: "PetFlex Plus", category: "Nutritional", animal: "Pets", summary: "Advanced joint care chewables with Glucosamine for dogs.", imageUrl: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop" },
+  { id: "1", name: "MastiCure Pro", category: "Medicines", animal: "Cattle", summary: "Broad-spectrum intramammary infusion for clinical mastitis.", price: 24.99, slug: "masticure-pro", imageUrl: "https://images.unsplash.com/photo-1584745814571-0f723e7facb9?q=80&w=800&auto=format&fit=crop" },
+  { id: "2", name: "CocciStop Solution", category: "Medicines", animal: "Poultry", summary: "Liquid anticoccidial for rapidly spreading infections.", price: 18.50, slug: "coccistop-solution", imageUrl: "https://images.unsplash.com/photo-1542385151-efd014aa27f6?q=80&w=800&auto=format&fit=crop" },
+  { id: "3", name: "BoviVax 5-Way", category: "Vaccines", animal: "Cattle", summary: "Pentavalent respiratory and reproductive vaccine.", price: 45.00, slug: "bovivax-5-way", imageUrl: "https://images.unsplash.com/photo-1628771065518-0d82f1938462?q=80&w=800&auto=format&fit=crop" },
+  { id: "4", name: "AquaGrow Booster", category: "Feed Supplements", animal: "Aquaculture", summary: "Pelleted probiotic for enhanced FCR in shrimp and fish.", price: 32.00, slug: "aquagrow-booster", imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" },
+  { id: "5", name: "ImidoVet Injection", category: "Medicines", animal: "Sheep & Goat", summary: "Specific hemoparasiticide against Babesiosis and Anaplasmosis.", price: 15.75, slug: "imidovet-injection", imageUrl: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop" },
+  { id: "6", name: "PetFlex Plus", category: "Nutritional", animal: "Pets", summary: "Advanced joint care chewables with Glucosamine for dogs.", price: 29.99, slug: "petflex-plus", imageUrl: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop" },
 ];
 
 const CATEGORIES = ["All", "Medicines", "Vaccines", "Feed Supplements", "Nutritional", "Equipment"];
@@ -23,6 +24,7 @@ export default function ProductListing() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeAnimal, setActiveAnimal] = useState("All");
   const [search, setSearch] = useState("");
+  const { addToCart } = useCart();
 
   const filteredProducts = PRODUCTS.filter(p => {
     const matchCat = activeCategory === "All" || p.category === activeCategory;
@@ -120,16 +122,28 @@ export default function ProductListing() {
                  </h2>
                  <p className="text-muted-foreground mb-6 flex-grow">{product.summary}</p>
                  
-                 <div className="flex items-center justify-between mt-auto">
+                 <div className="flex items-end justify-between mb-4">
+                   <span className="text-xl font-extrabold text-foreground">${product.price.toFixed(2)}</span>
+                   <button 
+                     className="text-xs font-bold text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors uppercase tracking-widest"
+                   >
+                     <FileDown size={14} /> Data
+                   </button>
+                 </div>
+                 
+                 <div className="flex items-center justify-between gap-3 mt-auto">
+                   <button 
+                     onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, slug: product.slug, imageUrl: product.imageUrl })}
+                     className="flex-1 bg-primary hover:bg-violet-700 text-white flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all text-sm shadow-sm"
+                   >
+                     <ShoppingCart size={16} /> Add to Cart
+                   </button>
                    <Link 
                      href={`/products/${product.id}`}
-                     className="inline-flex items-center justify-center bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground w-10 h-10 rounded-full transition-colors"
+                     className="inline-flex items-center justify-center bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground w-12 h-12 rounded-xl transition-colors"
                    >
                      <ArrowRight size={18} />
                    </Link>
-                   <button className="text-xs font-bold text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors uppercase tracking-widest">
-                     <FileDown size={14} /> Data Sheet
-                   </button>
                  </div>
                </div>
              </motion.div>

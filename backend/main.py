@@ -40,6 +40,19 @@ class InquiryCreate(BaseModel):
     company: Optional[str] = None
     message: str
 
+class ProductCreate(BaseModel):
+    name: str
+    slug: str
+    description: str
+    composition: Optional[str] = None
+    dosage: Optional[str] = None
+    benefits: Optional[str] = None
+    useCases: Optional[str] = None
+    animalTypes: List[str]
+    categoryId: str
+    imageUrl: Optional[str] = None
+    pdfUrl: Optional[str] = None
+
 # --- Routes ---
 
 @app.get("/")
@@ -75,6 +88,25 @@ async def get_product(slug: str):
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
     return product
+
+@app.post("/api/products")
+async def create_product(product: ProductCreate):
+    new_product = await prisma.product.create(
+        data={
+            "name": product.name,
+            "slug": product.slug,
+            "description": product.description,
+            "composition": product.composition,
+            "dosage": product.dosage,
+            "benefits": product.benefits,
+            "useCases": product.useCases,
+            "animalTypes": {"set": product.animalTypes},
+            "categoryId": product.categoryId,
+            "imageUrl": product.imageUrl,
+            "pdfUrl": product.pdfUrl
+        }
+    )
+    return new_product
 
 # Categories
 @app.get("/api/categories")
@@ -115,3 +147,8 @@ async def create_inquiry(inquiry: InquiryCreate):
     )
     # Here we would also send an email notification to admin
     return {"message": "Inquiry submitted successfully", "id": new_inquiry.id}
+
+@app.get("/api/inquiries")
+async def get_inquiries():
+    inquiries = await prisma.inquiry.find_many(order={"createdAt": "desc"})
+    return inquiries

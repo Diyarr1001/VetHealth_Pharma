@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Stethoscope, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
 export function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <footer className="bg-background border-t border-border pt-20 pb-10">
       <div className="container mx-auto px-4 md:px-8">

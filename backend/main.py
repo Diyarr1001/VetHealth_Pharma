@@ -14,7 +14,11 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, restrict this to frontend URL
+    allow_origins=[
+        "http://localhost:3000", 
+        "http://127.0.0.1:3000", 
+        "https://vet-health-pharma.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -109,6 +113,34 @@ async def create_product(product: ProductCreate):
         }
     )
     return new_product
+
+@app.put("/api/products/{id}")
+async def update_product(id: str, product: ProductCreate):
+    updated_product = await prisma.product.update(
+        where={"id": id},
+        data={
+            "name": product.name,
+            "slug": product.slug,
+            "description": product.description,
+            "price": product.price,
+            "composition": product.composition,
+            "dosage": product.dosage,
+            "benefits": product.benefits,
+            "useCases": product.useCases,
+            "animalTypes": {"set": product.animalTypes},
+            "categoryId": product.categoryId,
+            "imageUrl": product.imageUrl,
+            "pdfUrl": product.pdfUrl
+        }
+    )
+    return updated_product
+
+@app.delete("/api/products/{id}")
+async def delete_product(id: str):
+    await prisma.product.delete(
+        where={"id": id}
+    )
+    return {"message": "Product deleted successfully"}
 
 # Categories
 @app.get("/api/categories")

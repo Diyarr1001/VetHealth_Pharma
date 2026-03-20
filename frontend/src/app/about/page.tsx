@@ -10,21 +10,21 @@ export default function About() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 md:px-8 mb-24">
         <div className="max-w-4xl">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-6xl font-extrabold text-foreground font-heading mb-6"
           >
-            Pioneering the Future of <br/>
+            Pioneering the Future of <br />
             <span className="text-primary">Animal Health</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-xl text-muted-foreground leading-relaxed"
           >
-            VetHealth Pharma Pvt Ltd operates in veterinary healthcare and animal nutrition. 
+            VetHealth Pharma Pvt Ltd operates in veterinary healthcare and animal nutrition.
             We manufacture, distribute, and innovate healthcare solutions that empower veterinarians, farmers, and pet owners worldwide.
           </motion.p>
         </div>
@@ -33,15 +33,15 @@ export default function About() {
       {/* Business Activities & Overview Split */}
       <section className="container mx-auto px-4 md:px-8 mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl"
           >
-            <Image 
-              src="https://images.unsplash.com/photo-1628009368231-7bb7cbcb8122?q=80&w=1000&auto=format&fit=crop" 
-              alt="Veterinary laboratory research and care" 
+            <Image
+              src="https://images.pexels.com/photos/6235231/pexels-photo-6235231.jpeg"
+              alt="Veterinary laboratory research and care"
               fill
               className="object-cover"
             />
@@ -65,7 +65,7 @@ export default function About() {
               <p>
                 <strong>Our Vision:</strong> Become a trusted leader in veterinary healthcare and animal nutrition.
               </p>
-              
+
               <div className="pt-4">
                 <h3 className="font-bold text-foreground mb-3 font-heading text-xl">Key Business Activities:</h3>
                 <ul className="list-disc pl-5 space-y-2">
@@ -76,7 +76,7 @@ export default function About() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-6">
               <div className="border-l-2 border-primary pl-4">
                 <div className="text-3xl font-bold text-foreground mb-1">1st</div>
@@ -94,7 +94,7 @@ export default function About() {
       {/* Core Values */}
       <section className="bg-card border-y border-border py-24 mb-32 relative overflow-hidden">
         <div className="absolute right-0 top-0 w-1/3 h-full bg-primary/5 blur-3xl rounded-full" />
-        
+
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-4xl font-bold text-foreground font-heading mb-4">Our Core Values</h2>
@@ -105,11 +105,11 @@ export default function About() {
             {[
               { icon: <Award className="text-primary mb-4" size={32} />, title: "Quality", desc: "Stringent GMP compliance and multi-stage testing for every batch produced." },
               { icon: <Users className="text-premium mb-4" size={32} />, title: "Integrity", desc: "Honest, transparent partnerships with farmers, veterinarians, and distributors." },
-              { icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-microscope text-primary mb-4"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>, title: "Innovation", desc: "Continuous R&D to bring cutting-edge solutions to animal healthcare." },
+              { icon: <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-microscope text-primary mb-4"><path d="M6 18h8" /><path d="M3 22h18" /><path d="M14 22a7 7 0 1 0 0-14h-1" /><path d="M9 14h2" /><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" /><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" /></svg>, title: "Innovation", desc: "Continuous R&D to bring cutting-edge solutions to animal healthcare." },
               { icon: <TrendingUp className="text-premium mb-4" size={32} />, title: "Farmer Support", desc: "Empowering agricultural communities with better yields and healthier livestock." },
               { icon: <Globe className="text-primary mb-4" size={32} />, title: "Scientific Approach", desc: "Evidence-based product development targeting maximum bioavailability." }
             ].map((value, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

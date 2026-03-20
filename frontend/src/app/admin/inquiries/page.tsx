@@ -20,7 +20,7 @@ export default function InquiriesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/inquiries")
+    fetch("http://127.0.0.1:8000/api/inquiries")
       .then(res => res.json())
       .then(data => {
         setInquiries(data);

@@ -11,6 +11,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0 bg-secondary/30">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full mix-blend-multiply" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-premium/20 blur-[150px] rounded-full mix-blend-multiply" />
+        {/* demo start */}
         <video
           autoPlay
           muted
@@ -18,8 +19,12 @@ export function Hero() {
           playsInline
           className="object-cover w-full h-full opacity-90"
         >
-          <source src="https://res.cloudinary.com/demo/video/upload/v1641370241/elephants.mp4" type="video/mp4" />
+          {/* <source src="https://res.cloudinary.com/demo/video/upload/v1641370241/elephants.mp4" type="video/mp4" /> */}
+          <source src="https://www.pexels.com/download/video/7469714/" type="video/mp4" />
         </video>
+        {/* demo ends */}
+
+
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/30 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/5 to-transparent"></div>
       </div>
@@ -43,7 +48,7 @@ export function Hero() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-5xl md:text-7xl font-extrabold text-foreground mb-6 leading-tight tracking-tight font-heading"
           >
-            Complete Veterinary <br className="hidden md:block"/>
+            Complete Veterinary <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-premium">Healthcare</span> & Nutrition
           </motion.h1>
 

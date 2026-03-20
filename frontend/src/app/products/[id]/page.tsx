@@ -1,24 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, FileDown, ShieldCheck, ShoppingCart, MessageSquareText, Plus, Minus } from "lucide-react";
+import { useParams } from "next/navigation";
+import { ArrowLeft, CheckCircle2, FileDown, ShieldCheck, ShoppingCart, MessageSquareText, Plus, Minus, Loader2 } from "lucide-react";
 import { useCart } from "@/store/CartContext";
 
 export default function ProductDetail() {
+  const params = useParams();
+  const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   
-  // Hardcoded for demo, normally fetched from API using params.id
-  const product = {
-    id: "1",
-    name: "MastiCure Pro",
-    price: 24.99,
-    slug: "masticure-pro",
-    imageUrl: "https://images.unsplash.com/photo-1584745814571-0f723e7facb9?q=80&w=800&auto=format&fit=crop"
-  };
+  useEffect(() => {
+    if (params?.id) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/products/${params.id}`)
+        .then(res => res.json())
+        .then(data => {
+          setProduct(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setLoading(false);
+        });
+    }
+  }, [params]);
+
+  if (loading) {
+    return (
+      <div className="bg-background pt-32 pb-24 min-h-screen flex items-center justify-center">
+        <Loader2 size={48} className="animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="bg-background pt-32 pb-24 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold mb-4">Product Not Found</h2>
+          <Link href="/products" className="text-primary font-bold">Back to Catalog</Link>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-background pt-32 pb-24 min-h-screen">
       <section className="container mx-auto px-4 md:px-8">
@@ -36,7 +65,11 @@ export default function ProductDetail() {
                className="space-y-6"
              >
                <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-muted border border-border flex items-center justify-center p-8">
-                 <Image src="https://images.unsplash.com/photo-1584745814571-0f723e7facb9?q=80&w=800&auto=format&fit=crop" fill className="object-cover" alt="Product Image" />
+                 {product.imageUrl ? (
+                   <Image src={product.imageUrl} fill className="object-cover" alt={product.name} />
+                 ) : (
+                   <ShieldCheck size={80} className="text-muted-foreground/30" />
+                 )}
                  
                  <div className="absolute top-4 left-4 bg-primary/90 backdrop-blur text-primary-foreground px-4 py-1.5 rounded-full text-sm font-bold shadow-sm">
                    Rx Only
@@ -60,36 +93,46 @@ export default function ProductDetail() {
                className="flex flex-col justify-center"
              >
                <div className="flex gap-2 mb-4">
-                 <span className="bg-accent/10 text-accent border border-accent/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Medicines</span>
-                 <span className="bg-foreground/10 text-foreground border border-border px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Cattle</span>
+                 <span className="bg-accent/10 text-accent border border-accent/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">{product.category?.name || "Uncategorized"}</span>
+                 {product.animalTypes && product.animalTypes.map((type: string) => (
+                   <span key={type} className="bg-foreground/10 text-foreground border border-border px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">{type}</span>
+                 ))}
                </div>
                
                <h1 className="text-4xl md:text-5xl font-extrabold text-foreground font-heading mb-2">
-                 MastiCure Pro
+                 {product.name}
                </h1>
                
-               <div className="text-3xl font-extrabold text-primary mb-4">${product.price.toFixed(2)} <span className="text-sm font-normal text-muted-foreground tracking-widest uppercase">/ unit</span></div>
+               <div className="text-3xl font-extrabold text-primary mb-4">${product.price?.toFixed(2) || "0.00"} <span className="text-sm font-normal text-muted-foreground tracking-widest uppercase">/ unit</span></div>
 
                <p className="text-lg text-muted-foreground mb-8">
-                 Broad-spectrum, rapid-action intramammary infusion designed specifically for the treatment of clinical mastitis in lactating dairy cattle.
+                 {product.description}
                </p>
                
                <div className="space-y-6 mb-10">
-                 <div className="bg-background border border-border rounded-2xl p-6">
-                   <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Composition</h3>
-                   <p className="text-foreground font-medium text-lg border-l-2 border-primary pl-4">Cefoperazone Sodium 250mg <br/><span className="text-muted-foreground text-sm">per 10ml syringe</span></p>
-                 </div>
+                 {product.composition && (
+                   <div className="bg-background border border-border rounded-2xl p-6">
+                     <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Composition</h3>
+                     <p className="text-foreground font-medium text-lg border-l-2 border-primary pl-4">{product.composition}</p>
+                   </div>
+                 )}
                  
-                 <div className="grid grid-cols-2 gap-4">
-                   <div className="bg-background border border-border rounded-2xl p-6">
-                     <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Dosage</h3>
-                     <p className="text-foreground font-medium">1 syringe per infected quarter</p>
+                 {(product.dosage || product.benefits) && (
+                   <div className="grid grid-cols-2 gap-4">
+                     {product.dosage && (
+                       <div className="bg-background border border-border rounded-2xl p-6">
+                         <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Dosage</h3>
+                         <p className="text-foreground font-medium">{product.dosage}</p>
+                       </div>
+                     )}
+                     {product.benefits && (
+                       <div className="bg-background border border-border rounded-2xl p-6">
+                         <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Notice</h3>
+                         <p className="text-foreground font-medium text-destructive">{product.benefits}</p>
+                       </div>
+                     )}
                    </div>
-                   <div className="bg-background border border-border rounded-2xl p-6">
-                     <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Withdrawal</h3>
-                     <p className="text-foreground font-medium text-destructive">Milk: 72 hours<br/>Meat: 7 days</p>
-                   </div>
-                 </div>
+                 )}
                </div>
                
                <div className="pt-6 border-t border-border mt-auto space-y-4">

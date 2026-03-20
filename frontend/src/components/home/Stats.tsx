@@ -42,28 +42,8 @@ const itemVariants: Variants = {
 
 export function Stats() {
   return (
-    <section className="py-24 sm:py-32 bg-[#fafafa] relative overflow-hidden flex items-center justify-center">
-      
-      {/* Innovative Light Theme Background: Animated Concentric Pulse Rings */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/3 w-[800px] h-[800px] pointer-events-none">
-        {[0, 1, 2, 3].map((i) => (
-          <motion.div
-            key={i}
-            className="absolute inset-0 rounded-full border border-slate-200"
-            initial={{ scale: 0.2, opacity: 0 }}
-            animate={{ 
-              scale: [0.2, 1.5], 
-              opacity: [0.8, 0] 
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: i * 2,
-              ease: "easeOut"
-            }}
-          />
-        ))}
-      </div>
+    <section className="py-24 sm:py-32 bg-transparent relative overflow-hidden flex items-center justify-center z-10">
+
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">

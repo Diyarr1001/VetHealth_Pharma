@@ -44,7 +44,7 @@ export function DiseaseMapping() {
   const [activeDisease, setActiveDisease] = useState(DISEASES[0]);
 
   return (
-    <section className="py-24 bg-gradient-to-t from-background via-slate-50 to-background relative border-y border-border overflow-hidden">
+    <section className="py-24 bg-transparent relative border-y border-border overflow-hidden z-10">
       {/* Decorative Blob */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 -mb-20 -ml-20 w-[600px] h-[600px] bg-violet-200/20 rounded-full blur-[120px] pointer-events-none" />
       

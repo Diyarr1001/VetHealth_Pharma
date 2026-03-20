@@ -44,7 +44,7 @@ const ECOSYSTEM = [
 
 export function ProductEcosystem() {
   return (
-    <section className="py-24 bg-card relative overflow-hidden">
+    <section className="py-24 bg-transparent relative overflow-hidden z-10">
       {/* Abstract Background Element */}
       <div className="absolute top-0 right-0 -mt-20 -mr-20 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-[600px] h-[600px] bg-sky-400/15 rounded-full blur-[120px]" />

@@ -42,17 +42,29 @@ const itemVariants: Variants = {
 
 export function Stats() {
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-primary/5 relative overflow-hidden">
-      {/* Background Graphic */}
-      <div className="absolute top-0 right-0 w-1/2 h-full opacity-5 pointer-events-none text-primary">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full fill-current">
-          <polygon points="100,0 20,0 100,100" />
-        </svg>
-      </div>
+    <section className="py-24 bg-white relative overflow-hidden">
+      {/* Premium Dotted Grid Background */}
+      <div 
+        className="absolute inset-0 opacity-[0.3] mask-image:linear-gradient(to_bottom,white,transparent)"
+        style={{ 
+          backgroundImage: "radial-gradient(#94a3b8 1px, transparent 1px)", 
+          backgroundSize: "32px 32px",
+          maskImage: "linear-gradient(to bottom, black 20%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 20%, transparent 100%)"
+        }} 
+      />
 
-      {/* Decorative Blooming Blobs */}
-      <div className="absolute -left-20 top-20 w-96 h-96 bg-primary/10 rounded-full blur-[100px]" />
-      <div className="absolute right-0 bottom-0 w-96 h-96 bg-premium/10 rounded-full blur-[100px]" />
+      {/* Animated Breathing Ambient Orbs */}
+      <motion.div 
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3], rotate: [0, 90, 0] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -left-32 -top-32 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" 
+      />
+      <motion.div 
+        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2], rotate: [0, -90, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute -right-32 -bottom-32 w-[700px] h-[700px] bg-premium/10 rounded-full blur-[150px] pointer-events-none" 
+      />
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">

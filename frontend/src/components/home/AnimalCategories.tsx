@@ -11,42 +11,42 @@ const CATEGORIES = [
     title: "Cattle & Dairy",
     items: "120+ Products",
     imageUrl: "https://images.unsplash.com/photo-1568038100292-c75e7d6b9d82?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    color: "from-blue-500/90 via-blue-700/60 to-transparent",
+
   },
   {
     id: "poultry",
     title: "Poultry Farming",
     items: "85+ Products",
     imageUrl: "https://images.unsplash.com/photo-1441122456239-401e92b73c65?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    color: "from-amber-500/90 via-amber-700/60 to-transparent",
+
   },
   {
     id: "aqua",
     title: "Aquaculture",
     items: "40+ Products",
     imageUrl: "https://images.pexels.com/photos/5806533/pexels-photo-5806533.jpeg",
-    color: "from-teal-400/90 via-teal-700/60 to-transparent",
+
   },
   {
     id: "sheep-goat",
     title: "Sheep & Goat",
     items: "65+ Products",
     imageUrl: "https://images.unsplash.com/photo-1484557985045-edf25e08da73?q=80&w=800&auto=format&fit=crop",
-    color: "from-emerald-500/90 via-emerald-800/60 to-transparent",
+    // color: "from-emerald-500/90 via-emerald-800/60 to-transparent",
   },
   {
     id: "pets",
     title: "Companion Animals",
     items: "150+ Products",
     imageUrl: "https://images.pexels.com/photos/5745216/pexels-photo-5745216.jpeg",
-    color: "from-rose-500/90 via-rose-700/60 to-transparent",
+
   },
   {
     id: "equine",
     title: "Equine Healthcare",
     items: "30+ Products",
     imageUrl: "https://images.pexels.com/photos/14734881/pexels-photo-14734881.jpeg",
-    // color: "from-purple-500/90 via-purple-700/60 to-transparent",
+
   },
 ];
 
@@ -89,7 +89,7 @@ export function AnimalCategories() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-90 transition-opacity duration-300 group-hover:opacity-80`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-80" />
 
                   <div className="absolute inset-0 p-8 flex flex-col justify-end">
                     <div className="transform transition-transform duration-500 group-hover:-translate-y-4">

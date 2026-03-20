@@ -20,7 +20,8 @@ export default function InquiriesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/inquiries")
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+      fetch(`${baseUrl}/api/inquiries`)
       .then(res => res.json())
       .then(data => {
         setInquiries(data);

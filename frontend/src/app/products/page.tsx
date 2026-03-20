@@ -19,7 +19,7 @@ export default function ProductListing() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/products")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/products`)
       .then(res => res.json())
       .then(data => {
         setProducts(data);

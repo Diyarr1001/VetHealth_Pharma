@@ -34,7 +34,7 @@ export default function AdminProducts() {
   });
 
   const fetchProducts = () => {
-    fetch("http://127.0.0.1:8000/api/products")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/products`)
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -47,7 +47,7 @@ export default function AdminProducts() {
   };
 
   const fetchCategories = () => {
-    fetch("http://127.0.0.1:8000/api/categories")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/categories`)
       .then(res => res.json())
       .then(data => {
         setCategories(data);
@@ -67,7 +67,8 @@ export default function AdminProducts() {
     e.preventDefault();
     try {
       const isEdit = !!editingId;
-      const url = isEdit ? `http://127.0.0.1:8000/api/products/${editingId}` : "http://127.0.0.1:8000/api/products";
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+      const url = isEdit ? `${baseUrl}/api/products/${editingId}` : `${baseUrl}/api/products`;
       const method = isEdit ? "PUT" : "POST";
       
       const response = await fetch(url, {
@@ -109,7 +110,7 @@ export default function AdminProducts() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this product?")) return;
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/products/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/products/${id}`, {
         method: "DELETE"
       });
       if (response.ok) {
